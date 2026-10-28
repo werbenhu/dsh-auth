@@ -1,0 +1,37 @@
+# dsh-auth bundle patch: mounts the login/logout/account plugin and aligns
+# dsh's own browser cookie lifetime with the 7-day dsh-auth session.
+#
+# Config (override in the profile's cordis.patch.yml by restating the whole
+# `config` of `id: dsh-auth`):
+#   stateDir             account + session state (0700 dir, 0600 files)
+#   sessionDays          login session lifetime in days (default 7)
+#   forcePasswordChange  while the account still uses the default password,
+#                        block the UI and /api until it is changed (default true)
+#   defaultUsername / defaultPassword
+#                        credentials written when no account exists yet
+#   minPasswordLength    minimum length of a new password (default 8)
+#   lockoutMax / lockoutMinutes
+#                        failed logins per client IP before lockout (10 / 15)
+#   trustForwardedFor    honour X-Forwarded-For only from a loopback peer (nginx)
+- insert:
+    - id: dsh-auth
+      name: dsh-auth
+      config:
+        stateDir: /var/lib/dsh-auth
+        sessionDays: 7
+        forcePasswordChange: true
+        defaultUsername: admin
+        defaultPassword: '123456'
+        minPasswordLength: 8
+        lockoutMax: 10
+        lockoutMinutes: 15
+        trustForwardedFor: true
+        logoutLink: true
+
+# A patch replaces the whole row config, so restate trustedHosts.
+- id: connection
+  name: '@deepseek-ai/dsh-client-connection'
+  inject: [webStartup]
+  config:
+    trustedHosts: !!js ctx.webStartup.trustedHosts
+    cookieMaxAgeDays: 7

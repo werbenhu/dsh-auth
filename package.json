@@ -1,0 +1,37 @@
+{
+  "name": "dsh-auth",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness 登录与安全: username/password login, logout and account management for the dsh web profile",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "bin": {
+    "dsh-auth-reset": "bin/dsh-auth-reset.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": [
+        "./cordis.patch.yml"
+      ]
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  },
+  "license": "MIT"
+}

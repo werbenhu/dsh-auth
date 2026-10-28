@@ -172,3 +172,7 @@ This writes the default account with the forced change enabled, revokes all sess
   ```
 
   Remove any `id: dsh-auth` row you added to the profile's `cordis.patch.yml`, restart dsh, and optionally delete `stateDir`. Without the plugin, the dsh Web UI is open to anyone who can reach it again, so restrict access some other way.
+
+## License
+
+[MIT](LICENSE)

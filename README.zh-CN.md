@@ -169,3 +169,7 @@ node bin/dsh-auth-reset.mjs [--state-dir /var/lib/dsh-auth] [--username admin] [
   ```
 
   删除你在 profile 的 `cordis.patch.yml` 中添加的 `id: dsh-auth` 行，重启 dsh，并可选择删除 `stateDir`。卸载后 dsh Web UI 会重新对所有能访问到它的人开放，请改用其他方式限制访问。
+
+## 许可证
+
+[MIT](LICENSE)

@@ -1,7 +1,22 @@
 {
   "name": "dsh-auth",
   "version": "0.1.0",
-  "description": "DeepSeek Harness 登录与安全: username/password login, logout and account management for the dsh web profile",
+  "description": "Login, logout, account settings (Settings → Login & Security) and a restart button for the DeepSeek Harness (dsh) web UI",
+  "homepage": "https://github.com/werbenhu/dsh-auth#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/werbenhu/dsh-auth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/werbenhu/dsh-auth/issues"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "authentication",
+    "login"
+  ],
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -33,5 +48,14 @@
   "devDependencies": {
     "esbuild": "^0.25.12"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "lib",
+    "bin",
+    "src",
+    "cordis.patch.yml",
+    "build.mjs",
+    "README.md",
+    "README.zh-CN.md"
+  ]
 }

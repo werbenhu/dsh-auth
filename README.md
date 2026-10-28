@@ -7,21 +7,39 @@ English | [中文](README.zh-CN.md)
 ## Features
 
 - **Login / logout**: a login page in front of the Web UI. Unauthenticated requests to the UI are redirected to `/_auth/login`, and `/api` requests get `401`. Logout clears both the dsh-auth session and dsh's own browser credential.
-- **Account settings**: a native section in **Settings → 登录与安全 (Login & Security)** to change the username and password. The section also shows the session expiry and lets you log out. Changing the password signs out all other sessions.
+- **Account settings**: a native section in **Settings → Login & Security** to change the username and password. The section also shows the session expiry and lets you log out. Changing the password signs out all other sessions.
 - **Forced password change**: a fresh install starts with the default account `admin` / `123456`. Until that password is changed, the UI and `/api` are blocked and a change-password page is shown. The default password is never accepted as a new password.
 - **Brute-force lockout**: too many failed logins from one client IP lock that IP out for a while (10 attempts / 15 minutes by default).
-- **Restart button**: **Settings → 登录与安全 → 服务 (Service) → 重启 DeepSeek Harness** restarts dsh from the browser. dsh itself only tells you to "restart DSH" after some plugin installs; the Web UI has no way to do it. The page shows a confirmation dialog and a "restarting…" overlay, waits for dsh to come back, then reloads. You stay logged in.
+- **Restart button**: the **Restart DeepSeek Harness** button in the **Service** card (**Settings → Login & Security**) restarts dsh from the browser. dsh itself only tells you to "restart DSH" after some plugin installs; the Web UI has no way to do it. The page shows a confirmation dialog and a "restarting…" overlay, waits for dsh to come back, then reloads. You stay logged in.
 - **Works behind a reverse proxy**: honours `X-Forwarded-For` / `X-Forwarded-Proto` only from a loopback peer. The cookie is `Secure` over HTTPS, `HttpOnly` and `SameSite=Lax`.
 
 | Login | Forced password change |
 | --- | --- |
 | ![Login](docs/login.png) | ![Forced password change](docs/force-change.png) |
 
-| Settings → 登录与安全 | Restarting |
+| Settings → Login & Security | Restarting |
 | --- | --- |
 | ![Settings](docs/settings.png) | ![Restarting](docs/restarting.png) |
 
-> The UI text is currently Chinese only.
+### UI language
+
+The plugin's UI text is currently Chinese only. Use this table to find the English labels used in this README:
+
+| English | Chinese (shown in the UI) |
+| --- | --- |
+| Login & Security (Settings section) | 登录与安全 |
+| Username / Password / Log in | 用户名 / 密码 / 登录 |
+| Change your default password (forced change page) / Save | 请修改默认密码 / 保存 |
+| Current password / New password / Confirm new password | 当前密码 / 新密码 / 确认新密码 |
+| Change username or password / Save changes | 修改用户名或密码 / 保存修改 |
+| Service (card) | 服务 |
+| Restart DeepSeek Harness (button) | 重启 DeepSeek Harness |
+| Confirm restart / Cancel | 确认重启 / 取消 |
+| Restarting DeepSeek Harness… (overlay) | 正在重启 DeepSeek Harness… |
+| Log out | 退出登录 |
+| Error: wrong username or password | 用户名或密码错误 |
+| Error: too many failed logins, try again in N minutes | 登录失败次数过多，请 N 分钟后再试 |
+| Error: the default password cannot be used | 不能使用默认密码 |
 
 ## Requirements
 
@@ -69,7 +87,7 @@ To override options, add a `dsh-auth` row to your profile's `cordis.patch.yml`, 
 | `lockoutMax` | `10` | Failed logins per client IP before lockout. |
 | `lockoutMinutes` | `15` | Lockout window and duration in minutes. |
 | `trustForwardedFor` | `true` | Use `X-Forwarded-For` / `X-Forwarded-Proto`, but only when the request comes from a loopback address (your reverse proxy). |
-| `logoutLink` | `true` | Inject a small floating "退出登录" (log out) link into the UI. |
+| `logoutLink` | `true` | Inject a small floating **Log out** link into the bottom-right corner of the UI. |
 | `restart` | `true` | Enable the restart button and `POST /_auth/api/restart`. |
 | `restartUnit` | auto | The systemd unit to restart. It is detected from `/proc/self/cgroup` (e.g. `dsh-web.service`). |
 | `restartCommand` | — | A custom command as an argv array, e.g. `["supervisorctl", "restart", "dsh"]`, used instead of `systemctl restart --no-block <unit>`. |
